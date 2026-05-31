@@ -1,0 +1,214 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+/* Print styling to force exact layout */
+@media print {
+    @page {
+        size: A4 landscape;
+    }
+    body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .page-container {
+        padding: 10px; /* Add margin for printers */
+        margin: 0;
+        min-height: auto;
+    }
+}
+
+/* Visualization on screen */
+.page-container {
+    width: 297mm; /* A4 Landscape */
+    min-height: 190mm; /* Reduced to prevent blank page when printing */
+    padding: 10mm;
+    margin: 20px auto;
+    box-sizing: border-box;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 0 10px 0;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 11px;
+    border: 0.5px solid #aaa;
+}
+
+th, td {
+    border: 0.5px solid #aaa;
+    padding: 3px 5px;
+    text-align: center;
+    height: 18px; /* Consistent row height */
+    box-sizing: border-box;
+}
+
+th {
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+input {
+    border: none;
+    width: 90%;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: inherit;
+}
+
+input:focus {
+    outline: none;
+}
+
+/* Color definitions from the image */
+.bg-lavender {
+    background-color: #e6e6f5; /* Light blue/lavender */
+}
+
+.bg-tan {
+    background-color: #f6e6d5; /* Light brown/tan */
+}
+
+.bg-pale-red {
+    background-color: #fdeaea; /* Very pale red/pink */
+}
+
+/* Specific section styling */
+.header-info-table td {
+    text-align: left;
+    border: none;
+}
+
+.left-side-blocks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px; /* Spacing between repeating blocks */
+    margin-bottom: 20px;
+}
+
+.flight-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.hdg-box {
+    width: 70px;
+    border-collapse: collapse;
+}
+
+.right-side-blocks {
+    grid-column: 2; /* Main column on the right */
+    display: flex;
+    flex-direction: column;
+}
+
+.checkpoint-table {
+    width: 100%;
+}
+
+.main-grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two main columns */
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.total-box {
+    border: 1px solid #aaa;
+    width: 60px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+/* Bottom complex table */
+.bottom-table th, .bottom-table td {
+    height: 20px;
+}
+
+.complex-fuel-col {
+    padding: 0;
+    border: none;
+}
+
+.complex-fuel-col-inner {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    height: 100%;
+}
+
+.complex-fuel-col-inner div {
+    border-left: 0.5px solid #aaa;
+    border-bottom: 0.5px solid #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+    box-sizing: border-box;
+    height: 20px; /* Matching cell height */
+}
+
+.complex-fuel-col-inner div:first-child {
+    border-bottom: 0.5px solid #aaa;
+    justify-content: center;
+    padding-left: 0;
+}
+
+.complex-fuel-col-inner .fuel-type-line {
+    font-size: 9px;
+    border-bottom: 0.5px solid #aaa;
+}
+
+.complex-fuel-col-inner div:last-child {
+    border-bottom: 0.5px solid #aaa;
+    border-top: 1.5px solid #aaa; /* Thicker line above TOTAL */
+    font-weight: bold;
+}
+
+/* Notes Section */
+.notes-area {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.notes-line {
+    border-bottom: 1.5px dotted #888;
+}
+
+/* Perforation and small text */
+.perforation-line {
+    border-top: 0.5px dashed #ccc;
+    margin: 10px 0;
+}
+
+.footer-small-text {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #555;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.footer-bold-text {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333;
+    margin: 10px 0;
+    text-align: left;
+}
