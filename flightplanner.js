@@ -1,45 +1,71 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Distance and Time Elements
-    const distInputs = document.querySelectorAll('.dist-input');
-    const timeInputs = document.querySelectorAll('.time-input');
     const totalDistBox = document.getElementById('total-dist');
     const totalTimeBox = document.getElementById('total-time');
-
-    // Fuel Elements
     const fuelInputs = document.querySelectorAll('.fuel-input');
     const totalFuelInput = document.getElementById('total-fuel');
+    const flightFuelInput = document.getElementById('flight-fuel');
+    const aircraftSelect = document.getElementById('aircraft-select');
 
     function calculateDistTimeTotals() {
         let totalDist = 0;
         let totalTime = 0;
 
-        distInputs.forEach(input => {
+        document.querySelectorAll('.dist-input').forEach(input => {
             const val = parseFloat(input.value);
             if (!isNaN(val)) totalDist += val;
         });
 
-        timeInputs.forEach(input => {
+        document.querySelectorAll('.time-input').forEach(input => {
             const val = parseFloat(input.value);
             if (!isNaN(val)) totalTime += val;
         });
 
-        totalDistBox.textContent = totalDist > 0 ? totalDist : '';
-        totalTimeBox.textContent = totalTime > 0 ? totalTime : '';
+        totalDistBox.value = totalDist > 0 ? totalDist : '';
+        totalTimeBox.value = totalTime > 0 ? totalTime : '';
+        calculateFlightFuel();
+    }
+
+    function calculateFlightFuel() {
+        const totalTimeMinutes = parseFloat(totalTimeBox.value);
+        const burnRate = parseFloat(aircraftSelect.value);
+        if (!isNaN(totalTimeMinutes) && totalTimeMinutes > 0) {
+            flightFuelInput.value = Math.ceil(totalTimeMinutes / 60 * burnRate);
+        } else {
+            flightFuelInput.value = '';
+        }
+        calculateFuelTotal();
     }
 
     function calculateFuelTotal() {
         let totalFuel = 0;
-        
         fuelInputs.forEach(input => {
             const val = parseFloat(input.value);
             if (!isNaN(val)) totalFuel += val;
         });
-
         totalFuelInput.value = totalFuel > 0 ? totalFuel : '';
     }
 
-    // Add event listeners so totals calculate immediately upon typing
-    distInputs.forEach(input => input.addEventListener('input', calculateDistTimeTotals));
-    timeInputs.forEach(input => input.addEventListener('input', calculateDistTimeTotals));
+    document.querySelectorAll('.from-to-table').forEach(table => {
+        const distInput = table.querySelector('.dist-input');
+        const gsInput = table.querySelector('.gs-input');
+        const timeInput = table.querySelector('.time-input');
+
+        function computeRowTime() {
+            const dist = parseFloat(distInput.value);
+            const gs = parseFloat(gsInput.value);
+            if (!isNaN(dist) && !isNaN(gs) && gs > 0) {
+                timeInput.value = Math.round((dist / gs) * 60);
+            } else {
+                timeInput.value = '';
+            }
+            calculateDistTimeTotals();
+        }
+
+        distInput.addEventListener('input', computeRowTime);
+        gsInput.addEventListener('input', computeRowTime);
+        timeInput.addEventListener('input', calculateDistTimeTotals);
+    });
+
+    aircraftSelect.addEventListener('change', calculateFlightFuel);
     fuelInputs.forEach(input => input.addEventListener('input', calculateFuelTotal));
 });
